@@ -11,21 +11,32 @@ namespace CityGameMobile
         public AppShell()
         {
             InitializeComponent();
+            SetStartPage();
+
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
 
             Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
         }
 
-        private async void OnMenuItemClicked(object sender, EventArgs e)
+        private void SetStartPage()
+        {
+            CurrentItem = Settings.LoginStatus switch
+            {
+                AccountStatus.LoggedIn => GamePage,
+                _ => LoginPage,
+            };
+        }
+
+        private void OnMenuItemClicked(object sender, EventArgs e)
         {
             SecureStorage.Remove("username");
             SecureStorage.Remove("userId");
             SecureStorage.Remove("userScore");
 
             Settings.LoginStatus = AccountStatus.LoggedOut;
-            await Current.GoToAsync($"//{nameof(LoginPage)}");
-            //(Application.Current as App).MainPage = new AppShell();
+            //await Current.GoToAsync($"//{nameof(LoginPage)}");
+            (Application.Current as App).MainPage = new AppShell();
         }
     }
 }
