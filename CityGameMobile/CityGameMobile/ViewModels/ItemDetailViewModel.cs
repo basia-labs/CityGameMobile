@@ -17,13 +17,13 @@ namespace CityGameMobile.ViewModels
         public string Text
         {
             get => text;
-            set => SetProperty(ref text, value);
+            set => SetValue(ref text, value);
         }
 
         public string Description
         {
             get => description;
-            set => SetProperty(ref description, value);
+            set => SetValue(ref description, value);
         }
 
         public string ItemId
@@ -43,10 +43,10 @@ namespace CityGameMobile.ViewModels
         {
             try
             {
-                var item = await DataStore.GetItemAsync(itemId);
-                Id = item.Id;
-                Text = item.Text;
-                Description = item.Description;
+                //var item = await DataStore.GetItemAsync(itemId);
+                //Id = item.Id;
+                //Text = item.Text;
+                //Description = item.Description;
             }
             catch (Exception)
             {

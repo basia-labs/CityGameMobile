@@ -29,13 +29,13 @@ namespace CityGameMobile.ViewModels
         public string Text
         {
             get => text;
-            set => SetProperty(ref text, value);
+            set => SetValue(ref text, value);
         }
 
         public string Description
         {
             get => description;
-            set => SetProperty(ref description, value);
+            set => SetValue(ref description, value);
         }
 
         public Command SaveCommand { get; }
@@ -56,7 +56,7 @@ namespace CityGameMobile.ViewModels
                 Description = Description
             };
 
-            await DataStore.AddItemAsync(newItem);
+            //await DataStore.AddItemAsync(newItem);
 
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");

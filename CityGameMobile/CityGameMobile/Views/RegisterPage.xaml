@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:CityGameMobile.ViewModels"
+             x:Class="CityGameMobile.Views.RegisterPage"
+             Shell.PresentationMode="ModalAnimated"
+             Style="{StaticResource PageStyle}">
+
+    <ContentPage.BindingContext>
+        <viewModel:RegisterViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <StackLayout Spacing="3" Padding="15">
+
+            <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" />
+
+            <Label Text="Nazwa gracza" FontSize="Medium" Style="{StaticResource LabelStyle}" />
+            <Entry Text="{Binding Username, Mode=TwoWay}" FontSize="Medium" />
+
+            <StackLayout Orientation="Horizontal" Margin="0,14,0,0">
+                <Button Text="Powrót" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand" />
+                <Button Text="Zarejestruj się" Command="{Binding RegisterCommand}" HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
