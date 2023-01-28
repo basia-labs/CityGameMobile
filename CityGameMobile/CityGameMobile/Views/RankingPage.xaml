@@ -21,6 +21,7 @@
 
     <ContentPage.Resources>
         <Style x:Key="MyAccountLabelStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=#dedede}" />
             <Style.Triggers>
                 <DataTrigger TargetType="Label" 
                              Binding="{Binding MyAccount}" 
@@ -40,8 +41,8 @@
                         <StackLayout Padding="10" x:DataType="model:User">
                             <Label Text="{Binding Username}" 
                                 LineBreakMode="NoWrap" 
-                                FontSize="16"
-                                Style="{StaticResource LabelStyle}"/>
+                                FontSize="18"
+                                Style="{StaticResource MyAccountLabelStyle}"/>
                             
                             <Label FontSize="14"
                                    Style="{StaticResource LabelStyle}">
