@@ -42,12 +42,23 @@
                                 LineBreakMode="NoWrap" 
                                 FontSize="16"
                                 Style="{StaticResource LabelStyle}"/>
+                            
                             <Label FontSize="14"
                                    Style="{StaticResource LabelStyle}">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="Zdobytych punktów: " />
-                                        <Span Text="{Binding Score}" FontAttributes="Bold" />
+                                        <Span Text="Największa liczba punktów: " />
+                                        <Span Text="{Binding BestScore}" FontAttributes="Bold" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            
+                            <Label FontSize="14"
+                                   Style="{StaticResource LabelStyle}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Najlepszy czas: " />
+                                        <Span Text="{Binding BestTime, TargetNullValue='-'}" FontAttributes="Bold" />
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>

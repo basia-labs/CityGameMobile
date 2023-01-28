@@ -39,12 +39,24 @@ namespace CityGameMobile.Services
             return await response.GetObjectAsync<User>();
         }
 
-        public async Task<bool> IncreaseScoreAsync(long userId, int score)
+        public async Task<bool> SetScoreAsync(long userId, int score)
         {
             var response = await baseUrl
                 .AppendPathSegments("score")
                 .SetQueryParam(nameof(userId), userId.ToString())
                 .SetQueryParam(nameof(score), score.ToString())
+                .AllowAnyHttpStatus()
+                .PutAsync();
+
+            return response.StatusCode == 204;
+        }
+
+        public async Task<bool> SetTimeAsync(long userId, string time)
+        {
+            var response = await baseUrl
+                .AppendPathSegments("time")
+                .SetQueryParam(nameof(userId), userId.ToString())
+                .SetQueryParam(nameof(time), time)
                 .AllowAnyHttpStatus()
                 .PutAsync();
 

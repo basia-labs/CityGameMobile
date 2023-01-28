@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:CityGameMobile.ViewModels"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="CityGameMobile.Views.FinishPage"
+             Shell.PresentationMode="ModalAnimated"
+             Title="Gra miejska"
+             Style="{StaticResource PageStyle}">
+
+    <ContentPage.BindingContext>
+        <viewModel:FinishViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior
+                EventName="Appearing"
+                Command="{Binding PageAppearingCommand}" />
+    </ContentPage.Behaviors>
+
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand">
+            
+            <Label Text="Gratulacje!"
+                   VerticalOptions="CenterAndExpand"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   Style="{StaticResource LabelStyle}"/>
+
+            <Label Text="Ukończyłeś quizy we wszystkich lokalizacjach"
+                   VerticalOptions="CenterAndExpand"
+                   Margin="0,12,0,0"
+                   FontSize="18"
+                   Style="{StaticResource LabelStyle}"/>
+
+            <Label Margin="0,12,0,0"
+                   Style="{StaticResource LabelStyle}">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Łączna ilość zdobytych punktów: " />
+                        <Span Text="{Binding TotalScores}" FontAttributes="Bold" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <Label Margin="0,12,0,0"
+                   Style="{StaticResource LabelStyle}">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Łączny czas: " />
+                        <Span Text="{Binding ElapsedTime}" FontAttributes="Bold" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <Button Text="Zobacz ranking" Margin="0,20,0,0" Command="{Binding GoToRankingCommand}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

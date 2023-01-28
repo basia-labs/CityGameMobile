@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CityGameMobile.Views.GamePage"
+             x:Class="CityGameMobile.Views.LocalizationPage"
              xmlns:viewModel="clr-namespace:CityGameMobile.ViewModels"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              Shell.PresentationMode="ModalAnimated"
@@ -9,7 +9,7 @@
              Style="{StaticResource PageStyle}">
 
     <ContentPage.BindingContext>
-        <viewModel:GameViewModel />
+        <viewModel:LocalizationViewModel />
     </ContentPage.BindingContext>
 
     <ContentPage.Behaviors>
@@ -17,11 +17,12 @@
                 EventName="Appearing"
                 Command="{Binding PageAppearingCommand}" />
     </ContentPage.Behaviors>
-
+    
     <ContentPage.Content>
         <StackLayout Padding="20" Spacing="10">
+
             <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" />
-            
+
             <Label Style="{StaticResource LabelStyle}">
                 <Label.FormattedText>
                     <FormattedString>
@@ -31,40 +32,43 @@
                 </Label.FormattedText>
             </Label>
 
-            <Label FontSize="18"
-                   Margin="0,0,0,12"
+            <Label Text="Twój najbliższy cel to:"
+                   Margin="0,20,0,0"
+                   Style="{StaticResource LabelStyle}"/>
+
+            <Label Text="{Binding NextDestinationName}"
+                   FontSize="20"
                    FontAttributes="Bold"
+                   Style="{StaticResource LabelStyle}" />
+
+            <Label Text="Twoja obecna lokalizacja to:"
+                   Margin="0,20,0,0"
+                   Style="{StaticResource LabelStyle}"/>
+
+            <Label Text="{Binding UserCurrentLocalization}"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   Style="{StaticResource LabelStyle}" />
+
+            <Label Margin="0,20,0,0"
                    Style="{StaticResource LabelStyle}">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="{Binding CurrentQuestion}" />
-                        <Span Text=" (" />
-                        <Span Text="{Binding CurrentScore}" />
-                        <Span Text=" pkt)" />
+                        <Span Text="Twoja odległość od celu: " />
+                        <Span Text="{Binding Distance}" FontAttributes="Bold" />
+                        <Span Text=" m" FontAttributes="Bold"  />
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
 
-            <Button Text="{Binding AnswerA}"
-                    CornerRadius="10"
-                    HorizontalOptions="FillAndExpand"
-                    Command="{Binding MarkAnswerACommand}" />
-            
-            <Button Text="{Binding AnswerB}"
-                    CornerRadius="10"
-                    HorizontalOptions="FillAndExpand"
-                    Command="{Binding MarkAnswerBCommand}" />
+            <Label Text="Aby móc przystąpić do quizu musisz być w odległości minimum 50 metrów od celu"
+                   Margin="0,20,0,0"
+                   FontAttributes="Italic"
+                   Style="{StaticResource LabelStyle}" />
 
-            <Button Text="{Binding AnswerC}"
-                    CornerRadius="10"
-                    HorizontalOptions="FillAndExpand"
-                    Command="{Binding MarkAnswerCCommand}" />
-
-            <Button Text="{Binding AnswerD}"
-                    CornerRadius="10"
-                    HorizontalOptions="FillAndExpand"
-                    Command="{Binding MarkAnswerDCommand}" />
+            <Button Text="Odśwież lokalizację"
+                    Margin="0,30,0,0"
+                    Command="{Binding RefreshLocalizationCommand}" />
         </StackLayout>
     </ContentPage.Content>
-
 </ContentPage>

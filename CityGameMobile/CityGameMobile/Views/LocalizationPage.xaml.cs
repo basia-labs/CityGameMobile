@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
+namespace CityGameMobile.Views
+{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class LocalizationPage : ContentPage
+    {
+        public LocalizationPage()
+        {
+            InitializeComponent();
+        }
+    }
+}

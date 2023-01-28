@@ -3,12 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CityGameMobile.Views.StartPage"
              xmlns:viewModel="clr-namespace:CityGameMobile.ViewModels"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              Title="Gra miejska"
              Style="{StaticResource PageStyle}">
 
     <ContentPage.BindingContext>
         <viewModel:StartViewModel />
     </ContentPage.BindingContext>
+
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior
+                EventName="Appearing"
+                Command="{Binding PageAppearingCommand}" />
+    </ContentPage.Behaviors>
 
     <ContentPage.Content>
         <StackLayout HorizontalOptions="Center"

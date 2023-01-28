@@ -14,6 +14,8 @@ namespace CityGameMobile
             SetStartPage();
 
             Routing.RegisterRoute(nameof(GamePage), typeof(GamePage));
+            Routing.RegisterRoute(nameof(LocalizationPage), typeof(LocalizationPage));
+            Routing.RegisterRoute(nameof(FinishPage), typeof(FinishPage));
             Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
         }
 

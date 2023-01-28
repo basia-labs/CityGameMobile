@@ -1,10 +1,10 @@
 ﻿using CityGameMobile.Helpers;
 using CityGameMobile.Models;
 using CityGameMobile.Services;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Timers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -12,8 +12,6 @@ namespace CityGameMobile.ViewModels
 {
     public class GameViewModel : BaseViewModel
     {
-        private long currentUserId;
-        private int elapsedSeconds;
         private long currentLocalizationId;
         private long currentQuestionId;
         private Answer correctAnswer;
@@ -45,12 +43,9 @@ namespace CityGameMobile.ViewModels
 
         private readonly LocalizationService localizationService = new LocalizationService();
         private readonly QuestionService questionService = new QuestionService();
-        private readonly UserService userService = new UserService();
 
         public GameViewModel()
         {
-            ElapsedTime = "00:00:00";
-
             PageAppearingCommand = new Command(async () => await OnAppearingAsync());
             MarkAnswerACommand = new Command(async () => await OnMarkAnswerAAsync());
             MarkAnswerBCommand = new Command(async () => await OnMarkAnswerBAsync());
@@ -61,28 +56,28 @@ namespace CityGameMobile.ViewModels
         private async Task OnAppearingAsync()
         {
             IsBusy = true;
-            currentUserId = long.Parse(await SecureStorage.GetAsync("userId"));
+            TimerSingleton.Instance.Timer.Elapsed += OnTimedElapsed;
             await OnLoadLocalizationsAsync();
             await LoadQuestionsForLocalizationAsync();
             LoadQuestionDetails();
             IsBusy = false;
 
-            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
-            {
-                elapsedSeconds++;
-                int hours = elapsedSeconds / 3600;
-                int minutes = (elapsedSeconds % 3600) / 60;
-                int seconds = elapsedSeconds % 60;
-                ElapsedTime = $"{hours:D2}:{minutes:D2}:{seconds:D2}";
+            //Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            //{
+            //    elapsedSeconds++;
+            //    int hours = elapsedSeconds / 3600;
+            //    int minutes = (elapsedSeconds % 3600) / 60;
+            //    int seconds = elapsedSeconds % 60;
+            //    ElapsedTime = $"{hours:D2}:{minutes:D2}:{seconds:D2}";
 
-                return true;
-            });
+            //    return true;
+            //});
         }
 
         private async Task OnLoadLocalizationsAsync()
         {
             localizations = await localizationService.GetLocalizationsAsync();
-            currentLocalizationId = localizations.FirstOrDefault().Id;
+            currentLocalizationId = long.Parse(await SecureStorage.GetAsync("currentLocalizationId")); ;
         }
 
         private async Task LoadQuestionsForLocalizationAsync()
@@ -106,44 +101,61 @@ namespace CityGameMobile.ViewModels
         private async Task OnMarkAnswerAAsync()
         {
             await CheckAnswerAsync(Answer.A);
-            NextQuestion();
+            await NextQuestion();
         }
 
         private async Task OnMarkAnswerBAsync()
         {
             await CheckAnswerAsync(Answer.B);
-            NextQuestion();
+            await NextQuestion();
         }
 
         private async Task OnMarkAnswerCAsync()
         {
             await CheckAnswerAsync(Answer.C);
-            NextQuestion();
+            await NextQuestion();
         }
 
         private async Task OnMarkAnswerDAsync()
         {
             await CheckAnswerAsync(Answer.D);
-            NextQuestion();
+            await NextQuestion();
         }
 
         public async Task CheckAnswerAsync(Answer answer)
         {
             if (correctAnswer == answer)
             {
-                ToastHelper.MakeLongToast("Poprawna odpowiedź!");
-                await userService.IncreaseScoreAsync(currentUserId, CurrentScore);
+                ToastHelper.MakeShortToast("Poprawna odpowiedź!");
+                var scores = await SecureStorage.GetAsync("currentScoresAmount");
+                await SecureStorage.SetAsync("currentScoresAmount", $"{scores + CurrentScore}");
             }
             else
             {
-                ToastHelper.MakeLongToast("Błędna odpowiedź!");
+                ToastHelper.MakeShortToast("Błędna odpowiedź!");
             }
         }
 
-        private void NextQuestion()
+        private async Task NextQuestion()
         {
-            currentQuestionId = localizations.FirstOrDefault(l => l.Id > currentQuestionId).Id;
-            LoadQuestionDetails();
+            var nextQuestion = questions.FirstOrDefault(q => q.Id > currentQuestionId);
+
+            if (nextQuestion != null)
+            {
+                currentQuestionId = nextQuestion.Id;
+                LoadQuestionDetails();
+
+                return;
+            }
+
+            var nextLocalization = localizations.FirstOrDefault(l => l.Id > currentLocalizationId);
+
+            await Shell.Current.GoToAsync($"..");
+        }
+
+        private void OnTimedElapsed(object source, ElapsedEventArgs e)
+        {
+            ElapsedTime = TimerSingleton.Instance.ElapsedTime;
         }
     }
 }

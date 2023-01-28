@@ -70,7 +70,7 @@ namespace CityGameMobile.ViewModels
         {
             await SecureStorage.SetAsync("username", user.Username);
             await SecureStorage.SetAsync("userId", $"{user.Id}");
-            await SecureStorage.SetAsync("userScore", $"{user.Score}");
+            await SecureStorage.SetAsync("userScore", $"{user.BestScore}");
 
             Settings.LoginStatus = AccountStatus.LoggedIn;
             await Shell.Current.GoToAsync($"//{nameof(StartPage)}");
