@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CityGameMobile.Views.RankingPage"
+             xmlns:model="clr-namespace:CityGameMobile.Models"
+             xmlns:viewModel="clr-namespace:CityGameMobile.ViewModels"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Name="BrowseItemsPage"
+             Title="Ranking"
+             Style="{StaticResource PageStyle}">
+
+    <ContentPage.BindingContext>
+        <viewModel:RankingViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior
+                EventName="Appearing"
+                Command="{Binding PageAppearingCommand}" />
+    </ContentPage.Behaviors>
+
+    <ContentPage.Resources>
+        <Style x:Key="MyAccountLabelStyle" TargetType="Label">
+            <Style.Triggers>
+                <DataTrigger TargetType="Label" 
+                             Binding="{Binding MyAccount}" 
+                             Value="True">
+                    <Setter Property="FontAttributes" Value="Bold"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <RefreshView x:DataType="viewModel:RankingViewModel" Command="{Binding LoadUsersCommand}" IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}">
+            <CollectionView ItemsSource="{Binding Users}"
+                SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10" x:DataType="model:User">
+                            <Label Text="{Binding Username}" 
+                                LineBreakMode="NoWrap" 
+                                FontSize="16"
+                                Style="{StaticResource MyAccountLabelStyle}"/>
+                            <Label FontSize="14">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Zdobytych punktów: " />
+                                        <Span Text="{Binding Score}" FontAttributes="Bold" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>

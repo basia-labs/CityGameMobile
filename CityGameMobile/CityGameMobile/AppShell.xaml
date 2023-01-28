@@ -90,7 +90,7 @@
         <FlyoutItem.Icon>
             <FileImageSource File="{AppThemeBinding Dark=icon_ranking_white.png, Light=icon_ranking.png}" />
         </FlyoutItem.Icon>
-        <ShellContent Route="ItemsPage" ContentTemplate="{DataTemplate local:ItemsPage}" />
+        <ShellContent Route="ItemsPage" ContentTemplate="{DataTemplate local:RankingPage}" />
     </FlyoutItem>
 
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->

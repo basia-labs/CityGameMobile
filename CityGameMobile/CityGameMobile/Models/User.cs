@@ -6,5 +6,6 @@
         public string Username { get; set; }
         public string Identificator { get; set; }
         public int Score { get; set; }
+        public bool MyAccount { get; set; }
     }
 }
