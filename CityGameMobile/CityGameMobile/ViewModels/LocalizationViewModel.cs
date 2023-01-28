@@ -1,4 +1,5 @@
 ﻿using CityGameMobile.Helpers;
+using CityGameMobile.Models;
 using CityGameMobile.Services;
 using CityGameMobile.Views;
 using System;
@@ -40,6 +41,12 @@ namespace CityGameMobile.ViewModels
         private async Task OnAppearingAsync()
         {
             IsBusy = true;
+
+            if (!TimerSingleton.Instance.Timer.Enabled)
+            {
+                return;
+            }
+
             TimerSingleton.Instance.Timer.Elapsed += OnTimedElapsed;
             await LoadLocalizationAsync();
             await OnRefreshLocalizationAsync();

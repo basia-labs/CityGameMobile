@@ -4,7 +4,7 @@
              xmlns:viewModel="clr-namespace:CityGameMobile.ViewModels"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="CityGameMobile.Views.FinishPage"
-             Shell.PresentationMode="ModalAnimated"
+             Shell.NavBarIsVisible="False"
              Title="Gra miejska"
              Style="{StaticResource PageStyle}">
 
@@ -19,22 +19,24 @@
     </ContentPage.Behaviors>
 
     <ContentPage.Content>
-        <StackLayout VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand">
+        <StackLayout HorizontalOptions="Center"
+                     VerticalOptions="Center">
             
             <Label Text="Gratulacje!"
-                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="Center"
                    FontSize="20"
                    FontAttributes="Bold"
                    Style="{StaticResource LabelStyle}"/>
 
             <Label Text="Ukończyłeś quizy we wszystkich lokalizacjach"
-                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="Center"
                    Margin="0,12,0,0"
-                   FontSize="18"
+                   FontSize="16"
                    Style="{StaticResource LabelStyle}"/>
 
             <Label Margin="0,12,0,0"
+                   FontSize="16"
+                   HorizontalOptions="Center"
                    Style="{StaticResource LabelStyle}">
                 <Label.FormattedText>
                     <FormattedString>
@@ -45,6 +47,8 @@
             </Label>
 
             <Label Margin="0,12,0,0"
+                   FontSize="16"
+                   HorizontalOptions="Center"
                    Style="{StaticResource LabelStyle}">
                 <Label.FormattedText>
                     <FormattedString>

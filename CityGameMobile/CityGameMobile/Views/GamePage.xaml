@@ -4,7 +4,7 @@
              x:Class="CityGameMobile.Views.GamePage"
              xmlns:viewModel="clr-namespace:CityGameMobile.ViewModels"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-             Shell.PresentationMode="ModalAnimated"
+             Shell.NavBarIsVisible="False"
              Title="Gra miejska"
              Style="{StaticResource PageStyle}">
 

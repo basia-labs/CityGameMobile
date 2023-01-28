@@ -1,6 +1,7 @@
 ﻿using CityGameMobile.Helpers;
 using CityGameMobile.Models;
 using CityGameMobile.Services;
+using CityGameMobile.Views;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -61,17 +62,6 @@ namespace CityGameMobile.ViewModels
             await LoadQuestionsForLocalizationAsync();
             LoadQuestionDetails();
             IsBusy = false;
-
-            //Device.StartTimer(TimeSpan.FromSeconds(1), () =>
-            //{
-            //    elapsedSeconds++;
-            //    int hours = elapsedSeconds / 3600;
-            //    int minutes = (elapsedSeconds % 3600) / 60;
-            //    int seconds = elapsedSeconds % 60;
-            //    ElapsedTime = $"{hours:D2}:{minutes:D2}:{seconds:D2}";
-
-            //    return true;
-            //});
         }
 
         private async Task OnLoadLocalizationsAsync()
@@ -127,7 +117,7 @@ namespace CityGameMobile.ViewModels
             if (correctAnswer == answer)
             {
                 ToastHelper.MakeShortToast("Poprawna odpowiedź!");
-                var scores = await SecureStorage.GetAsync("currentScoresAmount");
+                var scores = int.Parse(await SecureStorage.GetAsync("currentScoresAmount"));
                 await SecureStorage.SetAsync("currentScoresAmount", $"{scores + CurrentScore}");
             }
             else
@@ -148,7 +138,11 @@ namespace CityGameMobile.ViewModels
                 return;
             }
 
-            var nextLocalization = localizations.FirstOrDefault(l => l.Id > currentLocalizationId);
+            if (!localizations.Any(l => l.Id > currentLocalizationId))
+            {
+                await Shell.Current.GoToAsync($"{nameof(FinishPage)}");
+                return;
+            }
 
             await Shell.Current.GoToAsync($"..");
         }
