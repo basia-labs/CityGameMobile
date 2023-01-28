@@ -13,6 +13,7 @@ namespace CityGameMobile
             InitializeComponent();
             SetStartPage();
 
+            Routing.RegisterRoute(nameof(GamePage), typeof(GamePage));
             Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
         }
 
@@ -20,7 +21,7 @@ namespace CityGameMobile
         {
             CurrentItem = Settings.LoginStatus switch
             {
-                AccountStatus.LoggedIn => GamePage,
+                AccountStatus.LoggedIn => StartPage,
                 _ => LoginPage,
             };
         }
@@ -32,7 +33,6 @@ namespace CityGameMobile
             SecureStorage.Remove("userScore");
 
             Settings.LoginStatus = AccountStatus.LoggedOut;
-            //await Current.GoToAsync($"//{nameof(LoginPage)}");
             (Application.Current as App).MainPage = new AppShell();
         }
     }

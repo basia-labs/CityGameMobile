@@ -41,8 +41,9 @@
                             <Label Text="{Binding Username}" 
                                 LineBreakMode="NoWrap" 
                                 FontSize="16"
-                                Style="{StaticResource MyAccountLabelStyle}"/>
-                            <Label FontSize="14">
+                                Style="{StaticResource LabelStyle}"/>
+                            <Label FontSize="14"
+                                   Style="{StaticResource LabelStyle}">
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span Text="Zdobytych punktów: " />

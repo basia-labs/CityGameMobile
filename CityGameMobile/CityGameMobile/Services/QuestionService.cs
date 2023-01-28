@@ -1,6 +1,7 @@
 ﻿using CityGameMobile.Config;
 using CityGameMobile.Extensions;
 using CityGameMobile.Models;
+using Flurl;
 using Flurl.Http;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -16,9 +17,10 @@ namespace CityGameMobile.Services
             baseUrl = Settings.BaseApiUrl + "question";
         }
 
-        public async Task<IEnumerable<Question>> GetQuestionAsync()
+        public async Task<IEnumerable<Question>> GetQuestionAsync(long localizationId)
         {
             var response = await baseUrl
+                .SetQueryParam(nameof(localizationId), localizationId)
                 .AllowAnyHttpStatus()
                 .GetAsync();
 

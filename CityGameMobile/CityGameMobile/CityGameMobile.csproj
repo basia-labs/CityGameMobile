@@ -15,6 +15,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\GamePage.xaml.cs">
+	    <DependentUpon>GamePage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\RankingPage.xaml.cs">
 	    <DependentUpon>RankingPage.xaml</DependentUpon>
 	  </Compile>
@@ -22,6 +25,9 @@
 
 	<ItemGroup>
 	  <EmbeddedResource Update="Views\RegisterPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\StartPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	</ItemGroup>

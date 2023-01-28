@@ -1,8 +1,4 @@
-﻿using CityGameMobile.Services;
-using CityGameMobile.Views;
-using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
 
 namespace CityGameMobile
 {
@@ -13,7 +9,6 @@ namespace CityGameMobile
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
         }
 

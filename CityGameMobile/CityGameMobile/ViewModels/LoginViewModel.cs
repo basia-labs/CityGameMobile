@@ -73,7 +73,7 @@ namespace CityGameMobile.ViewModels
             await SecureStorage.SetAsync("userScore", $"{user.Score}");
 
             Settings.LoginStatus = AccountStatus.LoggedIn;
-            await Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
+            await Shell.Current.GoToAsync($"//{nameof(StartPage)}");
         }
 
         private async Task InvalidUsernameOrPasswordAsync()

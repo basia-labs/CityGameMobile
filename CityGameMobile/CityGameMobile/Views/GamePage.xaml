@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CityGameMobile.Views.GamePage"
+             xmlns:viewModel="clr-namespace:CityGameMobile.ViewModels"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             Shell.PresentationMode="ModalAnimated"
+             Title="Gra miejska"
+             Style="{StaticResource PageStyle}">
+
+    <ContentPage.BindingContext>
+        <viewModel:GameViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior
+                EventName="Appearing"
+                Command="{Binding PageAppearingCommand}" />
+    </ContentPage.Behaviors>
+
+    <ContentPage.Content>
+        <StackLayout Padding="20" Spacing="10">
+            <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" />
+            
+            <Label Style="{StaticResource LabelStyle}">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Upłynęło czasu: " />
+                        <Span Text="{Binding ElapsedTime}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <Label FontSize="18"
+                   FontAttributes="Bold"
+                   Style="{StaticResource LabelStyle}">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{Binding CurrentQuestion}" />
+                        <Span Text=" (" />
+                        <Span Text="{Binding CurrentScore}" />
+                        <Span Text=" pkt)" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <Button Text="{Binding AnswerA}"
+                    CornerRadius="10"
+                    HorizontalOptions="FillAndExpand"
+                    Command="{Binding MarkAnswerACommand}" />
+            
+            <Button Text="{Binding AnswerB}"
+                    CornerRadius="10"
+                    HorizontalOptions="FillAndExpand"
+                    Command="{Binding MarkAnswerBCommand}" />
+
+            <Button Text="{Binding AnswerC}"
+                    CornerRadius="10"
+                    HorizontalOptions="FillAndExpand"
+                    Command="{Binding MarkAnswerCCommand}" />
+
+            <Button Text="{Binding AnswerD}"
+                    CornerRadius="10"
+                    HorizontalOptions="FillAndExpand"
+                    Command="{Binding MarkAnswerDCommand}" />
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>
